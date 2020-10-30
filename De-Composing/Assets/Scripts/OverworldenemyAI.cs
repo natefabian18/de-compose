@@ -18,8 +18,4 @@ public class OverworldenemyAI : MonoBehaviour
         
     }
 
-    private void getInput()
-    {
-
-    }
 }

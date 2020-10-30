@@ -234,7 +234,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapPosition: {x: 0, y: 0}
-  speed: 1
+  speed: 0.1
+  recoveryFactor: 2
+  movementFactor: 0.3
 --- !u!212 &977163887
 SpriteRenderer:
   m_ObjectHideFlags: 0
