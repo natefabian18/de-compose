@@ -36,7 +36,7 @@ public class ScaleAttack : MonoBehaviour
 
 		deltaSpeedModifier = speedModifier;
 
-		StartAttack();
+		Bar.GetComponent<SpriteRenderer>().enabled = false;
 	}
 
 	private void Update()
@@ -76,9 +76,11 @@ public class ScaleAttack : MonoBehaviour
 	public void StartAttack() {
 		Bar.transform.position = start.transform.position;
 		barIsMoving = true;
+		Bar.GetComponent<SpriteRenderer>().enabled = true;
 	}
 
 	private void EndAttack(GameObject note) {
+		Bar.GetComponent<SpriteRenderer>().enabled = false;
 		//something in manager to tell it the note
 		if (note == null) {
 			Debug.Log("miss");
