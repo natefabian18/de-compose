@@ -13,8 +13,6 @@ using UnityEngine;
 
 public class PlayerTeamManager : MonoBehaviour
 {
-	public bool ISTURN = true;
-
 	public float TeamHealth = 100;
 	private float maxTeamHealth;
 	private GameObject PlayerHealthBar;
@@ -23,6 +21,11 @@ public class PlayerTeamManager : MonoBehaviour
 
 	//refactor me please
 	public GameObject Trumpet;
+
+	private bool takingTurn = false;
+	private GameObject[] attackTurns;
+
+	private ScaleAttack Scale;
 
 	// Start is called before the first frame update
 	void Start()
@@ -40,17 +43,23 @@ public class PlayerTeamManager : MonoBehaviour
 			Charecters.Add(Trumpet);
 
 			UpdateHealth(0);
+
+			attackTurns = new GameObject[3];
+			for (int i = 0; i < attackTurns.Length; i++) {
+				attackTurns[i] = null;
+			}
+			Scale = GameObject.FindGameObjectWithTag("Scale").GetComponent<ScaleAttack>();
 		}
 		catch (NullReferenceException e) {
 			Debug.LogError($"missing: {e} Did you set all your wires or rename something?");
 		}
 	}
 
-	// Update is called once per frame
-	void Update()
+	private void Update()
 	{
-		if (ISTURN) { 
-		
+		if (takingTurn)
+		{
+			checkForfinishedAttack();
 		}
 	}
 
@@ -58,5 +67,33 @@ public class PlayerTeamManager : MonoBehaviour
 		TeamHealth += change;
 
 		PlayerHealthBar.GetComponent<HealthBar>().HealthUpdate(TeamHealth/maxTeamHealth);
+	}
+
+	public void startTeamAttack() {
+		takingTurn = true;
+		//call scale
+		Scale.StartAttack(true);
+	}
+
+	public void AttackRegister(GameObject note) {
+		//scale calls back home
+		for (int i = 0; i < attackTurns.Length; i++) {
+			if (attackTurns[i] == null) {
+				attackTurns[i] = note;
+				if (i != 2) {
+					//call scale attack again
+					Scale.StartAttack(true);
+				}
+				return;
+			}
+		}
+	}
+
+	private void checkForfinishedAttack() { 
+		if (attackTurns[0] != null && attackTurns[1] != null && attackTurns[2] != null) {
+			takingTurn = false;
+			Debug.Log("SUCCESSFUL ATTACK");
+			//call team attack for calc
+		}
 	}
 }

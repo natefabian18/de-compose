@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - Note
+  - EnemyPoint
+  - FightSceneManager
+  - PlayerTeam
+  - EnemyTeam
+  - Scale
   layers:
   - Default
   - TransparentFX

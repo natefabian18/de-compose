@@ -24,6 +24,11 @@ public class ScaleAttack : MonoBehaviour
 	private float ClosestNoteDistance;
 	private GameObject[] notesArray;
 
+	private PlayerTeamManager Player;
+	//private EnemyTeamManager Enemy;
+
+	private bool attacking;
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -37,12 +42,13 @@ public class ScaleAttack : MonoBehaviour
 		deltaSpeedModifier = speedModifier;
 
 		Bar.GetComponent<SpriteRenderer>().enabled = false;
+		Player = GameObject.FindGameObjectWithTag("PlayerTeam").GetComponent<PlayerTeamManager>();
 	}
 
 	private void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.L)) {
-			StartAttack();
+			StartAttack(true);
 		}
 
 		//refactor this to show animations
@@ -73,21 +79,22 @@ public class ScaleAttack : MonoBehaviour
 		}
 	}
 
-	public void StartAttack() {
+	public void StartAttack(bool attacker) {
 		Bar.transform.position = start.transform.position;
 		barIsMoving = true;
 		Bar.GetComponent<SpriteRenderer>().enabled = true;
+		attacking = attacker;
 	}
 
 	private void EndAttack(GameObject note) {
 		Bar.GetComponent<SpriteRenderer>().enabled = false;
+		barIsMoving = false;
 		//something in manager to tell it the note
 		if (note == null) {
 			Debug.Log("miss");
 		} else {
 			Debug.Log(note.name.ToString());
+			Player.AttackRegister(note);
 		}
-
-		barIsMoving = false;
 	}
 }
