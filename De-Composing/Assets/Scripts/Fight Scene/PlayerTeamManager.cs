@@ -27,6 +27,8 @@ public class PlayerTeamManager : MonoBehaviour
 
 	private ScaleAttack Scale;
 
+	private FightSceneManager FightSceneScript;
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -49,6 +51,8 @@ public class PlayerTeamManager : MonoBehaviour
 				attackTurns[i] = null;
 			}
 			Scale = GameObject.FindGameObjectWithTag("Scale").GetComponent<ScaleAttack>();
+
+			FightSceneScript = GameObject.FindGameObjectWithTag("FightSceneManager").GetComponent<FightSceneManager>();
 		}
 		catch (NullReferenceException e) {
 			Debug.LogError($"missing: {e} Did you set all your wires or rename something?");
@@ -66,7 +70,7 @@ public class PlayerTeamManager : MonoBehaviour
 	public void UpdateHealth(float change) {
 		TeamHealth += change;
 
-		PlayerHealthBar.GetComponent<HealthBar>().HealthUpdate(TeamHealth/maxTeamHealth);
+		PlayerHealthBar.GetComponent<HealthBar>().staticHealthUpdate(TeamHealth/maxTeamHealth);
 	}
 
 	public void startTeamAttack() {
@@ -94,6 +98,33 @@ public class PlayerTeamManager : MonoBehaviour
 			takingTurn = false;
 			Debug.Log("SUCCESSFUL ATTACK");
 			//call team attack for calc
+			calcAndApplyAttack();
 		}
+	}
+
+	//base attack power per note is 10
+	private void calcAndApplyAttack() {
+		//TODO: check for attack modifiers: chord
+		int[] attacks = new int[3];
+		float damageToSend;
+		bool isHealing = false;
+		//is harp in play?
+
+		for (int i = 0; i < attackTurns.Length; i++) {
+			int.TryParse((attackTurns[i].name.Substring(attackTurns[0].name.Length - 1)), out attacks[i]);
+		}
+
+		damageToSend = attacks[0] + attacks[1] + attacks[2]; //general damage
+
+		//all same note bonus
+		if (attacks[0] == attacks[1] && attacks[1] == attacks[2]) {
+			damageToSend = attacks[0] * 4;
+		}
+
+		//chord test
+
+		Debug.Log(attacks[0]);
+		//send damage
+		FightSceneScript.PlayerAttack(damageToSend * 10, isHealing);
 	}
 }

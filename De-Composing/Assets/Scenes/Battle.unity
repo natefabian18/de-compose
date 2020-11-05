@@ -736,6 +736,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerHealthBar
       objectReference: {fileID: 0}
+    - target: {fileID: 8624586414399550131, guid: 5b2975f5963918346a7b5cb53f63a830,
+        type: 3}
+      propertyPath: m_TagString
+      value: PlayerHealth
+      objectReference: {fileID: 0}
     - target: {fileID: 291993616714163250, guid: 5b2975f5963918346a7b5cb53f63a830,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -804,7 +809,12 @@ PrefabInstance:
     - target: {fileID: 3453263298508490070, guid: 5b2975f5963918346a7b5cb53f63a830,
         type: 3}
       propertyPath: HealthPercent
-      value: 0.5
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3453263298508490070, guid: 5b2975f5963918346a7b5cb53f63a830,
+        type: 3}
+      propertyPath: TotalHealth
+      value: 500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b2975f5963918346a7b5cb53f63a830, type: 3}
@@ -962,6 +972,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyHealthBar
       objectReference: {fileID: 0}
+    - target: {fileID: 8624586414399550131, guid: 5b2975f5963918346a7b5cb53f63a830,
+        type: 3}
+      propertyPath: m_TagString
+      value: EnemyHealth
+      objectReference: {fileID: 0}
     - target: {fileID: 291993616714163250, guid: 5b2975f5963918346a7b5cb53f63a830,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1030,7 +1045,12 @@ PrefabInstance:
     - target: {fileID: 3453263298508490070, guid: 5b2975f5963918346a7b5cb53f63a830,
         type: 3}
       propertyPath: HealthPercent
-      value: 0.5
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3453263298508490070, guid: 5b2975f5963918346a7b5cb53f63a830,
+        type: 3}
+      propertyPath: TotalHealth
+      value: 500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b2975f5963918346a7b5cb53f63a830, type: 3}

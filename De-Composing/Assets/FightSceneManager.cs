@@ -30,9 +30,15 @@ public class FightSceneManager : MonoBehaviour
 	private bool ButtonSelectable = true; //is true when its players turn false when its the enemys turn
 	private PlayerTeamManager PlayerTeamScript;
 
+	private HealthBar PlayerHealth;
+	private HealthBar EnemyHealth;
+
 	// Start is called before the first frame update
 	void Start()
 	{
+		PlayerHealth = GameObject.FindGameObjectWithTag("PlayerHealth").GetComponent<HealthBar>();
+		EnemyHealth = GameObject.FindGameObjectWithTag("EnemyHealth").GetComponent<HealthBar>();
+
 		PlayerTeamScript = GameObject.FindGameObjectWithTag("PlayerTeam").GetComponent<PlayerTeamManager>();
 		instaniateTeams();
 	}
@@ -67,5 +73,10 @@ public class FightSceneManager : MonoBehaviour
 			//call player team attack
 			PlayerTeamScript.startTeamAttack();
 		}
+	}
+
+	public void PlayerAttack(float damage, bool healPlayer) {
+		Debug.Log($"damage is {damage} enemyHealth is {EnemyHealth.TotalHealth} damage percent is {damage / EnemyHealth.TotalHealth}");
+		EnemyHealth.HealthUpdate(damage / EnemyHealth.TotalHealth);
 	}
 }
