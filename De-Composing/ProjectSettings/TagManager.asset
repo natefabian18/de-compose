@@ -12,6 +12,11 @@ TagManager:
   - Scale
   - PlayerHealth
   - EnemyHealth
+  - Enemy1
+  - Enemy2
+  - Enemy3
+  - OOB
+  - Boss_transition
   layers:
   - Default
   - TransparentFX
