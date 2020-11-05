@@ -80,6 +80,7 @@ public class ScaleAttack : MonoBehaviour
 	}
 
 	public void StartAttack(bool attacker) {
+		cheatmode = false;
 		Bar.transform.position = start.transform.position;
 		barIsMoving = true;
 		Bar.GetComponent<SpriteRenderer>().enabled = true;
@@ -97,4 +98,18 @@ public class ScaleAttack : MonoBehaviour
 			Player.AttackRegister(note);
 		}
 	}
+
+	public void startCheatAttack(object selectedNote) {
+		cheatmode = true;
+	}
+
+	/* 
+		selectnote
+		startmoveing to bar till dist to selected < 0.1
+		move bar back and select next note
+		once all notes selected end the attack with the cheat notes
+		send attack
+		check who dead
+		start player turn again
+	 */
 }

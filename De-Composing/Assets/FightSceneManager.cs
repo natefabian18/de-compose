@@ -29,6 +29,7 @@ public class FightSceneManager : MonoBehaviour
 
 	private bool ButtonSelectable = true; //is true when its players turn false when its the enemys turn
 	private PlayerTeamManager PlayerTeamScript;
+	private EnemyTeamManager EnemyTeamScript;
 
 	private HealthBar PlayerHealth;
 	private HealthBar EnemyHealth;
@@ -40,6 +41,7 @@ public class FightSceneManager : MonoBehaviour
 		EnemyHealth = GameObject.FindGameObjectWithTag("EnemyHealth").GetComponent<HealthBar>();
 
 		PlayerTeamScript = GameObject.FindGameObjectWithTag("PlayerTeam").GetComponent<PlayerTeamManager>();
+		EnemyTeamScript = GameObject.FindGameObjectWithTag("EnemyTeam").GetComponent<EnemyTeamManager>();
 		instaniateTeams();
 	}
 
@@ -56,6 +58,7 @@ public class FightSceneManager : MonoBehaviour
 				Enemy = Instantiate(Guitar);
 				Enemy.transform.position = GameObject.FindGameObjectWithTag("EnemyPoint").transform.position;
 				Debug.Log("guitarLoaded");
+				EnemyTeamScript.addCharecter(Enemy);
 				break;
 			case EnemyType.Encounter2:
 				break;
@@ -78,5 +81,8 @@ public class FightSceneManager : MonoBehaviour
 	public void PlayerAttack(float damage, bool healPlayer) {
 		Debug.Log($"damage is {damage} enemyHealth is {EnemyHealth.TotalHealth} damage percent is {damage / EnemyHealth.TotalHealth}");
 		EnemyHealth.HealthUpdate(damage / EnemyHealth.TotalHealth);
+
+		//Enemy do some stuff
+		
 	}
 }
