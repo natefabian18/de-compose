@@ -126,5 +126,8 @@ public class PlayerTeamManager : MonoBehaviour
 		Debug.Log(attacks[0]);
 		//send damage
 		FightSceneScript.PlayerAttack(damageToSend * 10, isHealing);
+		attackTurns[0] = null;
+		attackTurns[1] = null;
+		attackTurns[2] = null;
 	}
 }

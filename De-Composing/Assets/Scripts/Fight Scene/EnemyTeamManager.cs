@@ -7,7 +7,7 @@ public class EnemyTeamManager : MonoBehaviour
 {
 	public float TeamHealth = 100;
 	private float maxTeamHealth;
-	private GameObject PlayerHealthBar;
+	private GameObject EnemyHealthBar;
 	private List<GameObject> CharecterPoints;
 	private List<GameObject> Characters;
 
@@ -25,50 +25,42 @@ public class EnemyTeamManager : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		try
+
+		maxTeamHealth = TeamHealth; //replace with max health from const file when avilable
+		EnemyHealthBar = this.transform.Find("EnemyHealthBar").gameObject;
+
+		CharecterPoints = new List<GameObject>();
+		CharecterPoints.Add(this.transform.Find("EnemyPoint1").gameObject);
+
+		Characters = new List<GameObject>();
+		//this is loaded in form const party file
+
+
+		UpdateHealth(0);
+
+		attackTurns = new GameObject[3];
+		for (int i = 0; i < attackTurns.Length; i++)
 		{
-			maxTeamHealth = TeamHealth; //replace with max health from const file when avilable
-			PlayerHealthBar = this.transform.Find("PlayerHealthBar").gameObject;
-
-			CharecterPoints = new List<GameObject>();
-			CharecterPoints.Add(this.transform.Find("PlayerPoint1").gameObject);
-
-			Characters = new List<GameObject>();
-			//this is loaded in form const party file
-
-
-			UpdateHealth(0);
-
-			attackTurns = new GameObject[3];
-			for (int i = 0; i < attackTurns.Length; i++)
-			{
-				attackTurns[i] = null;
-			}
-			Scale = GameObject.FindGameObjectWithTag("Scale").GetComponent<ScaleAttack>();
-
-			FightSceneScript = GameObject.FindGameObjectWithTag("FightSceneManager").GetComponent<FightSceneManager>();
+			attackTurns[i] = null;
 		}
-		catch (NullReferenceException e)
-		{
-			Debug.LogError($"missing: {e} Did you set all your wires or rename something?");
-		}
+		Scale = GameObject.FindGameObjectWithTag("Scale").GetComponent<ScaleAttack>();
+
+		FightSceneScript = GameObject.FindGameObjectWithTag("FightSceneManager").GetComponent<FightSceneManager>();
+
 	}
 
 	// Update is called once per frame
 
 	private void Update()
 	{
-		if (takingTurn)
-		{
-			checkForfinishedAttack();
-		}
+
 	}
 
 	public void UpdateHealth(float change)
 	{
 		TeamHealth += change;
 
-		PlayerHealthBar.GetComponent<HealthBar>().staticHealthUpdate(TeamHealth / maxTeamHealth);
+		EnemyHealthBar.GetComponent<HealthBar>().staticHealthUpdate(TeamHealth / maxTeamHealth);
 	}
 
 	public void startTeamAttack()
@@ -78,7 +70,7 @@ public class EnemyTeamManager : MonoBehaviour
 		Scale.startCheatAttack(constructAttack());
 	}
 
-	private object constructAttack()
+	private int[] constructAttack()
 	{
 		// 0 - 1
 		/*
@@ -93,19 +85,19 @@ public class EnemyTeamManager : MonoBehaviour
 		 * chord chance if random number is between match offset and 1
 		 */
 
-		float normalDamageChance = (ChordDamageChance + MatchDamageChance + MissChance) - 1;
+		float normalDamageChance = 1 - (ChordDamageChance + MatchDamageChance + MissChance);
 		float randomMoveSelect = UnityEngine.Random.Range(0, 1f);
 
-		int note1 = -1;
-		int note2 = -1;
-		int note3 = -1;
+		int note1 = 8; 
+		int note2 = 8;
+		int note3 = 8;
 		if (randomMoveSelect >= 0 && randomMoveSelect <= MissChance)
 		{
 			//miss
 			//first move always misses
 
-			note2 = UnityEngine.Random.Range(-1, 7);
-			note3 = UnityEngine.Random.Range(-1, 7);
+			note2 = UnityEngine.Random.Range(0, 7);
+			note3 = UnityEngine.Random.Range(0, 7);
 		}
 		else if (randomMoveSelect > MissChance && randomMoveSelect <= MissChance + normalDamageChance)
 		{
@@ -127,36 +119,20 @@ public class EnemyTeamManager : MonoBehaviour
 			//make later
 		}
 
-		return new { note1, note2, note3 };
+		int[] returner = new int[3];
+		returner[0] = note1;
+		returner[1] = note2;
+		returner[2] = note3;
+		return returner;
 	}
 
-	public void AttackRegister(GameObject note)
+	public void checkForfinishedAttack(GameObject[] attacks)
 	{
-		//scale calls back home
-		for (int i = 0; i < attackTurns.Length; i++)
-		{
-			if (attackTurns[i] == null)
-			{
-				attackTurns[i] = note;
-				if (i != 2)
-				{
-					//call scale attack again
-					Scale.StartAttack(true);
-				}
-				return;
-			}
-		}
-	}
+		attackTurns[0] = attacks[0];
+		attackTurns[1] = attacks[1];
+		attackTurns[2] = attacks[2];
 
-	private void checkForfinishedAttack()
-	{
-		if (attackTurns[0] != null && attackTurns[1] != null && attackTurns[2] != null)
-		{
-			takingTurn = false;
-			Debug.Log("SUCCESSFUL ATTACK");
-			//call team attack for calc
-			calcAndApplyAttack();
-		}
+		calcAndApplyAttack();
 	}
 
 	//base attack power per note is 10
@@ -183,9 +159,8 @@ public class EnemyTeamManager : MonoBehaviour
 
 		//chord test
 
-		Debug.Log(attacks[0]);
 		//send damage
-		FightSceneScript.PlayerAttack(damageToSend * 10, isHealing);
+		FightSceneScript.EndEnemyAttack(damageToSend * 10);
 	}
 
 	public void addCharecter(GameObject character)

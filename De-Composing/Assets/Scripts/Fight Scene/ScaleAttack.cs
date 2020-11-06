@@ -23,15 +23,19 @@ public class ScaleAttack : MonoBehaviour
 	private GameObject note;
 	private float ClosestNoteDistance;
 	private GameObject[] notesArray;
+	private int[] cheatNotes;
+	private GameObject[] cheatednotes;
+	private bool[] cheatNoteSelected;
 
 	private PlayerTeamManager Player;
-	//private EnemyTeamManager Enemy;
+	private EnemyTeamManager Enemy;
 
 	private bool attacking;
 
 	// Start is called before the first frame update
 	void Start()
 	{
+		cheatednotes = new GameObject[3];
 		notes = new List<GameObject>();
 		notesArray = GameObject.FindGameObjectsWithTag("Note");
 
@@ -43,6 +47,8 @@ public class ScaleAttack : MonoBehaviour
 
 		Bar.GetComponent<SpriteRenderer>().enabled = false;
 		Player = GameObject.FindGameObjectWithTag("PlayerTeam").GetComponent<PlayerTeamManager>();
+		Enemy = GameObject.FindGameObjectWithTag("EnemyTeam").GetComponent<EnemyTeamManager>();
+		cheatNoteSelected = new bool[3];
 	}
 
 	private void Update()
@@ -53,14 +59,31 @@ public class ScaleAttack : MonoBehaviour
 
 		//refactor this to show animations
 		if (cheatmode) {
-			EndAttack(notes[cheatnote]);
+			Bar.transform.position += new Vector3(speed * deltaSpeedModifier, 0, 0);
+			deltaSpeedModifier += speedModifier;
+
+			for (int i = 0; i < cheatNoteSelected.Length; i++) {
+				if (cheatNoteSelected[i] == false) {
+					if ((Bar.transform.position - cheatednotes[i].transform.position).magnitude < 0.1) {
+						cheatNoteSelected[i] = true;
+						Bar.transform.position = start.transform.position;
+						deltaSpeedModifier = 0;
+					}
+				}
+
+				if (cheatNoteSelected[cheatNoteSelected.Length - 1] == true) {
+					//end attack
+					Debug.Log("end enemy attack");
+					endCheatAttack();
+				}
+			}
 		}
 
 		if (barIsMoving) {
 			Bar.transform.position += new Vector3(speed * deltaSpeedModifier, 0, 0);
 			deltaSpeedModifier += speedModifier;
 			if (Bar.transform.position.x > end.transform.position.x) {
-				EndAttack(miss); //no note selected / miss
+				EndAttack(notes[8]); //no note selected / miss
 				deltaSpeedModifier = 0;
 			}
 
@@ -90,17 +113,33 @@ public class ScaleAttack : MonoBehaviour
 	private void EndAttack(GameObject note) {
 		Bar.GetComponent<SpriteRenderer>().enabled = false;
 		barIsMoving = false;
+		Bar.transform.position = start.transform.position;
 		//something in manager to tell it the note
-		if (note == null) {
-			Debug.Log("miss");
-		} else {
-			Debug.Log(note.name.ToString());
-			Player.AttackRegister(note);
-		}
+		Player.AttackRegister(note);
 	}
 
-	public void startCheatAttack(object selectedNote) {
+	public void startCheatAttack(int[] selectedNote) {
 		cheatmode = true;
+		Debug.Log($"{selectedNote[0]}\n{selectedNote[1]}\n{selectedNote[2]}");
+		cheatNotes = selectedNote;
+		Debug.Log($"selectedNote {selectedNote[0]}\ncheatNotes {cheatNotes[0]}\nnotesArray {notesArray[cheatNotes[0]]}");
+		cheatednotes[0] = notesArray[cheatNotes[0]];
+		cheatednotes[1] = notesArray[cheatNotes[1]];
+		cheatednotes[2] = notesArray[cheatNotes[2]];
+		cheatNoteSelected[0] = false;
+		cheatNoteSelected[1] = false;
+		cheatNoteSelected[2] = false;
+		Bar.GetComponent<SpriteRenderer>().enabled = true;
+	}
+
+	private void endCheatAttack() {
+		Bar.GetComponent<SpriteRenderer>().enabled = false;
+		barIsMoving = false;
+		//#stopthebar
+
+		Enemy.checkForfinishedAttack(cheatednotes);
+
+		cheatmode = false;
 	}
 
 	/* 

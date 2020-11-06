@@ -52,12 +52,10 @@ public class FightSceneManager : MonoBehaviour
 	}
 
 	private void instaniateTeams() {
-		Debug.Log($"Building Teams");
 		switch (currentEncounterEnemy) {
 			case EnemyType.Encounter1:
 				Enemy = Instantiate(Guitar);
 				Enemy.transform.position = GameObject.FindGameObjectWithTag("EnemyPoint").transform.position;
-				Debug.Log("guitarLoaded");
 				EnemyTeamScript.addCharecter(Enemy);
 				break;
 			case EnemyType.Encounter2:
@@ -83,6 +81,40 @@ public class FightSceneManager : MonoBehaviour
 		EnemyHealth.HealthUpdate(damage / EnemyHealth.TotalHealth);
 
 		//Enemy do some stuff
-		
+		checkHealthAndDeclareWinner();
+
+		EnemyAttack();
+	}
+
+	public void EnemyAttack() {
+		EnemyTeamScript.startTeamAttack();
+	}
+
+	public void EndEnemyAttack(float damage) {
+		PlayerHealth.HealthUpdate(damage / PlayerHealth.TotalHealth);
+
+		checkHealthAndDeclareWinner();
+
+		ButtonSelectable = true;
+	}
+
+	private void checkHealthAndDeclareWinner() {
+		if (EnemyHealth.HealthPercent == 0) {
+			//player wins
+			Debug.Log("Enemy dead");
+			//check if final boss was killed
+
+			//load scene and kill enemy
+			UnityEngine.SceneManagement.SceneManager.LoadScene("Overworld");
+		}
+
+		if (PlayerHealth.HealthPercent == 0) {
+			//enemy wins boot back to overworld
+			Debug.Log("Player dead");
+			//load scene back at town
+			UnityEngine.SceneManagement.SceneManager.LoadScene("Overworld");
+		}
+
+		// no winner do nothing
 	}
 }
