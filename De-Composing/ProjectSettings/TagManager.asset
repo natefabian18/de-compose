@@ -17,6 +17,7 @@ TagManager:
   - Enemy3
   - OOB
   - Boss_transition
+  - Light
   layers:
   - Default
   - TransparentFX
