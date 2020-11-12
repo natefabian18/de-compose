@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using JetBrains.Annotations;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +9,14 @@ public class Overworldplayermovement : MonoBehaviour
 	public float speed = 1f;
 	public float recoveryFactor = 2f;
 	public float movementFactor = 2f;
-
+	public Vector2 startPosition;
+	public float distance = 10f;
+	public Color color;
+	public int layerMask;
+	public static int Raycast;
+	
+	private RaycastHit2D[] results;
+	private ContactFilter2D contactFilter;
 	private Vector3 oldPosition;
 	private Vector2 deltaMovement;
 	private Vector2 direction;
@@ -18,7 +26,9 @@ public class Overworldplayermovement : MonoBehaviour
 	void Start()
 	{
 		oldPosition = new Vector3(0, 0, 0);
-
+		startPosition = transform.position;
+		contactFilter.SetDepth(-2f, -12f);
+		results = new RaycastHit2D[100];
 	}
 
 	// Update is called once per frame
@@ -29,6 +39,28 @@ public class Overworldplayermovement : MonoBehaviour
 		direction = getInput();
 		direction.Normalize();
 		deltaMovement = speed * direction * Time.deltaTime;
+
+		startPosition = transform.position;
+		int stuffHit = Physics2D.Raycast(startPosition, direction, contactFilter, results, distance);
+		Debug.DrawRay(startPosition, direction, color, distance);
+		if (stuffHit != 0)
+		{
+			Debug.Log("done hit nothin");
+			if (results[0].collider.gameObject.tag == "OOB")
+			{
+				Debug.Log("Hitting the payload");
+				//Vector2 contactDir = new Vector2(hit.point.x - transform.position.x, hit.point.y - transform.position.y);
+				//float distanceToCollision = contactDir.magnitude;
+				//GameObject collisionObject = hit.collider.gameObject as GameObject;
+				//Vector2 reverseDir = new Vector2(contactDir.x * -1, contactDir.y * -1);
+				//if(distanceToCollision < 5 && collisionObject.tag == "OOB")
+				//         {
+				//	Debug.Log("Hitting the OOB");
+				//	Vector3 fix = new Vector3(reverseDir.x, reverseDir.y, 0) * speed * Time.deltaTime;
+				//	transform.position += fix;
+				//}
+			}
+		}
 
 		mapPosition = transform.position;
 		transform.position = new Vector3(playerX, playerY, 0);
