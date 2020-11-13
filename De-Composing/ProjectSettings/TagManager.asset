@@ -21,6 +21,7 @@ TagManager:
   - PlayerPoint1
   - PlayerPoint2
   - PlayerPoint3
+  - Light
   layers:
   - Default
   - TransparentFX
