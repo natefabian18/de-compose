@@ -19,9 +19,6 @@ public class PlayerTeamManager : MonoBehaviour
 	private List<GameObject> CharecterPoints;
 	private List<GameObject> Charecters;
 
-	//refactor me please
-	public GameObject Trumpet;
-
 	private bool takingTurn = false;
 	private GameObject[] attackTurns;
 
@@ -32,31 +29,34 @@ public class PlayerTeamManager : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-		try
+
+		maxTeamHealth = TeamHealth; //replace with max health from const file when avilable
+		PlayerHealthBar = this.transform.Find("PlayerHealthBar").gameObject;
+
+		CharecterPoints = new List<GameObject>();
+		CharecterPoints.Add(this.transform.Find("PlayerPoint1").gameObject);
+
+		Charecters = new List<GameObject>();
+		//this is loaded in form const party file
+		for (int i = 0; i < Constants.C.selectedPlayers.Length; i++)
 		{
-			maxTeamHealth = TeamHealth; //replace with max health from const file when avilable
-			PlayerHealthBar = this.transform.Find("PlayerHealthBar").gameObject;
-
-			CharecterPoints = new List<GameObject>();
-			CharecterPoints.Add(this.transform.Find("PlayerPoint1").gameObject);
-
-			Charecters = new List<GameObject>();
-			//this is loaded in form const party file
-			Charecters.Add(Trumpet);
-
-			UpdateHealth(0);
-
-			attackTurns = new GameObject[3];
-			for (int i = 0; i < attackTurns.Length; i++) {
-				attackTurns[i] = null;
-			}
-			Scale = GameObject.FindGameObjectWithTag("Scale").GetComponent<ScaleAttack>();
-
-			FightSceneScript = GameObject.FindGameObjectWithTag("FightSceneManager").GetComponent<FightSceneManager>();
+			Charecters.Add(Constants.C.selectedPlayers[i]);
 		}
-		catch (NullReferenceException e) {
-			Debug.LogError($"missing: {e} Did you set all your wires or rename something?");
+
+		initilizeTeamPosition();
+
+
+		UpdateHealth(0);
+
+		attackTurns = new GameObject[3];
+		for (int i = 0; i < attackTurns.Length; i++)
+		{
+			attackTurns[i] = null;
 		}
+		Scale = GameObject.FindGameObjectWithTag("Scale").GetComponent<ScaleAttack>();
+
+		FightSceneScript = GameObject.FindGameObjectWithTag("FightSceneManager").GetComponent<FightSceneManager>();
+
 	}
 
 	private void Update()
@@ -67,24 +67,30 @@ public class PlayerTeamManager : MonoBehaviour
 		}
 	}
 
-	public void UpdateHealth(float change) {
+	public void UpdateHealth(float change)
+	{
 		TeamHealth += change;
 
-		PlayerHealthBar.GetComponent<HealthBar>().staticHealthUpdate(TeamHealth/maxTeamHealth);
+		PlayerHealthBar.GetComponent<HealthBar>().staticHealthUpdate(TeamHealth / maxTeamHealth);
 	}
 
-	public void startTeamAttack() {
+	public void startTeamAttack()
+	{
 		takingTurn = true;
 		//call scale
 		Scale.StartAttack(true);
 	}
 
-	public void AttackRegister(GameObject note) {
+	public void AttackRegister(GameObject note)
+	{
 		//scale calls back home
-		for (int i = 0; i < attackTurns.Length; i++) {
-			if (attackTurns[i] == null) {
+		for (int i = 0; i < attackTurns.Length; i++)
+		{
+			if (attackTurns[i] == null)
+			{
 				attackTurns[i] = note;
-				if (i != 2) {
+				if (i != 2)
+				{
 					//call scale attack again
 					Scale.StartAttack(true);
 				}
@@ -93,8 +99,10 @@ public class PlayerTeamManager : MonoBehaviour
 		}
 	}
 
-	private void checkForfinishedAttack() { 
-		if (attackTurns[0] != null && attackTurns[1] != null && attackTurns[2] != null) {
+	private void checkForfinishedAttack()
+	{
+		if (attackTurns[0] != null && attackTurns[1] != null && attackTurns[2] != null)
+		{
 			takingTurn = false;
 			Debug.Log("SUCCESSFUL ATTACK");
 			//call team attack for calc
@@ -103,21 +111,24 @@ public class PlayerTeamManager : MonoBehaviour
 	}
 
 	//base attack power per note is 10
-	private void calcAndApplyAttack() {
+	private void calcAndApplyAttack()
+	{
 		//TODO: check for attack modifiers: chord
 		int[] attacks = new int[3];
 		float damageToSend;
 		bool isHealing = false;
 		//is harp in play?
 
-		for (int i = 0; i < attackTurns.Length; i++) {
+		for (int i = 0; i < attackTurns.Length; i++)
+		{
 			int.TryParse((attackTurns[i].name.Substring(attackTurns[0].name.Length - 1)), out attacks[i]);
 		}
 
 		damageToSend = attacks[0] + attacks[1] + attacks[2]; //general damage
 
 		//all same note bonus
-		if (attacks[0] == attacks[1] && attacks[1] == attacks[2]) {
+		if (attacks[0] == attacks[1] && attacks[1] == attacks[2])
+		{
 			damageToSend = attacks[0] * 4;
 		}
 
@@ -129,5 +140,16 @@ public class PlayerTeamManager : MonoBehaviour
 		attackTurns[0] = null;
 		attackTurns[1] = null;
 		attackTurns[2] = null;
+	}
+
+	public void initilizeTeamPosition()
+	{
+		Charecters[0] = Instantiate(Charecters[0]);
+		Charecters[1] = Instantiate(Charecters[1]);
+		Charecters[2] = Instantiate(Charecters[2]);
+
+		Charecters[0].transform.position = GameObject.FindGameObjectWithTag("PlayerPoint1").transform.position;
+		Charecters[1].transform.position = GameObject.FindGameObjectWithTag("PlayerPoint2").transform.position;
+		Charecters[2].transform.position = GameObject.FindGameObjectWithTag("PlayerPoint3").transform.position;
 	}
 }

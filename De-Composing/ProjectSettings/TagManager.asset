@@ -18,6 +18,9 @@ TagManager:
   - OOB
   - Boss_transition
   - PlayerSceneManager
+  - PlayerPoint1
+  - PlayerPoint2
+  - PlayerPoint3
   layers:
   - Default
   - TransparentFX

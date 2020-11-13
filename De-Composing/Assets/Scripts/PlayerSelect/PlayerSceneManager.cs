@@ -6,6 +6,8 @@ public class PlayerSceneManager : MonoBehaviour
 {
 	public int playersSelected = 0;
 
+	public GameObject[] playerOptions;
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -25,18 +27,23 @@ public class PlayerSceneManager : MonoBehaviour
 			switch (selection) {
 				case "Trumpet":
 					Debug.Log("Trumpet");
+					Constants.C.AssignPlayer(playerOptions[0]);
 					break;
 				case "Drum":
 					Debug.Log("Drum");
+					Constants.C.AssignPlayer(playerOptions[1]);
 					break;
 				case "Maracas":
 					Debug.Log("Maracas");
+					Constants.C.AssignPlayer(playerOptions[2]);
 					break;
 				case "Xylophone":
 					Debug.Log("Xylophone");
+					Constants.C.AssignPlayer(playerOptions[3]);
 					break;
 				case "Harp":
 					Debug.Log("Harp");
+					Constants.C.AssignPlayer(playerOptions[4]);
 					break;
 				default:
 					Debug.LogError("button tossed invalid peram");
@@ -46,6 +53,7 @@ public class PlayerSceneManager : MonoBehaviour
 
 		if (playersSelected == 3) {
 			Debug.Log("load next scene");
+			UnityEngine.SceneManagement.SceneManager.LoadScene("Overworld");
 		}
 	}
 }
