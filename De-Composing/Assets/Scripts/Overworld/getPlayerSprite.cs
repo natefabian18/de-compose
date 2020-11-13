@@ -16,10 +16,10 @@ public class getPlayerSprite : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //playerSprite = Constants.C.partymember1;
-        playerSprite = tempSprite;
+        playerSprite = Constants.C.selectedPlayers[0].GetComponent<SpriteRenderer>().sprite;
+        //playerSprite = tempSprite;
         spriteRenderer.sprite = playerSprite;
-        this.transform.localScale = new Vector3(.04f, .04f, 1);
+        this.transform.localScale = new Vector3(.2f, .2f, 1);
     }
 
     // Update is called once per frame

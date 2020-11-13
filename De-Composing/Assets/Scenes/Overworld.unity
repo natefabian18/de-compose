@@ -309,7 +309,7 @@ GameObject:
   - component: {fileID: 977163891}
   - component: {fileID: 977163890}
   m_Layer: 0
-  m_Name: generic
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -328,7 +328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapPosition: {x: 0, y: 0}
-  speed: 1
+  speed: 5
   recoveryFactor: 10
   movementFactor: 0.05
   startPosition: {x: 0, y: 0}

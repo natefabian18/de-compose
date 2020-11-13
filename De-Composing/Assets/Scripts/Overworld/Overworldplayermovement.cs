@@ -85,35 +85,35 @@ public class Overworldplayermovement : MonoBehaviour
 
 	}
 
-	//private void OnTriggerEnter2D(Collider2D collision)
-	//{
-	//	//please store player position and dead enemys in the constants file before loading any scenes
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		//please store player position and dead enemys in the constants file before loading any scenes
 
-	//	if (collision.tag == "Enemy1")
-	//	{
-	//		//move to fight scene with enemy #1
-	//	}
-	//	else if (collision.tag == "Enemy2")
-	//	{
-	//		//move to fight scene with enemy #2
-	//	}
-	//	else if (collision.tag == "Enemy3")
-	//	{
-	//		//move to fight scene with enemy #3
-	//	}
-	//	else if (collision.tag == "Boss_transition")
-	//	{
-	//		UnityEngine.SceneManagement.SceneManager.LoadScene("Battle");
-	//		//move to fight scene with enemy #3
-	//	}
-	//	Debug.Log("OOB");
-	//	Vector3 recoveryDirection = oldPosition - transform.position;
-	//	recoveryDirection.Normalize();
-	//	recoveryDirection *= recoveryFactor;
-	//	Vector3 fix = new Vector3(deltaMovement.x, deltaMovement.y, 0);
-	//	fix.Scale(recoveryDirection);
-	//	transform.position += fix;
-	//}
+		if (collision.tag == "Enemy1")
+		{
+			//move to fight scene with enemy #1
+		}
+		else if (collision.tag == "Enemy2")
+		{
+			//move to fight scene with enemy #2
+		}
+		else if (collision.tag == "Enemy3")
+		{
+			//move to fight scene with enemy #3
+		}
+		else if (collision.tag == "Boss_transition")
+		{
+			UnityEngine.SceneManagement.SceneManager.LoadScene("Battle");
+			//move to fight scene with enemy #3
+		}
+		//Debug.Log("OOB");
+		//Vector3 recoveryDirection = oldPosition - transform.position;
+		//recoveryDirection.Normalize();
+		//recoveryDirection *= recoveryFactor;
+		//Vector3 fix = new Vector3(deltaMovement.x, deltaMovement.y, 0);
+		//fix.Scale(recoveryDirection);
+		//transform.position += fix;
+	}
 
 	//private void OnTriggerExit2D(Collider2D collision)
 	//{
@@ -129,13 +129,13 @@ public class Overworldplayermovement : MonoBehaviour
 	//	{
 	//		//move to fight scene with enemy #3
 	//	}
-	//	Debug.Log("OOB");
-	//	Vector3 recoveryDirection = oldPosition - transform.position;
-	//	recoveryDirection.Normalize();
-	//	recoveryDirection *= recoveryFactor;
-	//	Vector3 fix = new Vector3(deltaMovement.x, deltaMovement.y, 0);
-	//	fix.Scale(recoveryDirection);
-	//	transform.position += fix;
+	//	//Debug.Log("OOB");
+	//	//Vector3 recoveryDirection = oldPosition - transform.position;
+	//	//recoveryDirection.Normalize();
+	//	//recoveryDirection *= recoveryFactor;
+	//	//Vector3 fix = new Vector3(deltaMovement.x, deltaMovement.y, 0);
+	//	//fix.Scale(recoveryDirection);
+	//	//transform.position += fix;
 
 	//}
 }

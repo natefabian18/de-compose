@@ -31,19 +31,19 @@ public class PlayerSceneManager : MonoBehaviour
 					break;
 				case "Drum":
 					Debug.Log("Drum");
-					Constants.C.AssignPlayer(playerOptions[1]);
+					Constants.C.AssignPlayer(playerOptions[3]);
 					break;
 				case "Maracas":
 					Debug.Log("Maracas");
-					Constants.C.AssignPlayer(playerOptions[2]);
+					Constants.C.AssignPlayer(playerOptions[4]);
 					break;
 				case "Xylophone":
 					Debug.Log("Xylophone");
-					Constants.C.AssignPlayer(playerOptions[3]);
+					Constants.C.AssignPlayer(playerOptions[2]);
 					break;
 				case "Harp":
 					Debug.Log("Harp");
-					Constants.C.AssignPlayer(playerOptions[4]);
+					Constants.C.AssignPlayer(playerOptions[1]);
 					break;
 				default:
 					Debug.LogError("button tossed invalid peram");
