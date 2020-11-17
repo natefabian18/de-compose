@@ -23,6 +23,7 @@ TagManager:
   - PlayerPoint3
   - Light
   - StartSceneManager
+  - EndSceneManager
   layers:
   - Default
   - TransparentFX
