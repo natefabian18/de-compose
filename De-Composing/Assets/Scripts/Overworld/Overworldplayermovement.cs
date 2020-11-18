@@ -91,15 +91,11 @@ public class Overworldplayermovement : MonoBehaviour
 
 		if (collision.tag == "Enemy1")
 		{
-			//move to fight scene with enemy #1
+			UnityEngine.SceneManagement.SceneManager.LoadScene("Battle 1");
 		}
 		else if (collision.tag == "Enemy2")
 		{
-			//move to fight scene with enemy #2
-		}
-		else if (collision.tag == "Enemy3")
-		{
-			//move to fight scene with enemy #3
+			UnityEngine.SceneManagement.SceneManager.LoadScene("Battle 2");
 		}
 		else if (collision.tag == "Boss_transition")
 		{
@@ -114,28 +110,4 @@ public class Overworldplayermovement : MonoBehaviour
 		//fix.Scale(recoveryDirection);
 		//transform.position += fix;
 	}
-
-	//private void OnTriggerExit2D(Collider2D collision)
-	//{
-	//	if (collision.tag == "Enemy1")
-	//	{
-	//		//move to fight scene with enemy #1
-	//	}
-	//	else if (collision.tag == "Enemy2")
-	//	{
-	//		//move to fight scene with enemy #2
-	//	}
-	//	else if (collision.tag == "Enemy3")
-	//	{
-	//		//move to fight scene with enemy #3
-	//	}
-	//	//Debug.Log("OOB");
-	//	//Vector3 recoveryDirection = oldPosition - transform.position;
-	//	//recoveryDirection.Normalize();
-	//	//recoveryDirection *= recoveryFactor;
-	//	//Vector3 fix = new Vector3(deltaMovement.x, deltaMovement.y, 0);
-	//	//fix.Scale(recoveryDirection);
-	//	//transform.position += fix;
-
-	//}
 }

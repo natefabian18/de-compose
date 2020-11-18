@@ -813,10 +813,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 149b6fc3c8cc3264ab9a1227dc84beb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TeamHealth: 550
+  TeamHealth: 400
   ChordDamageChance: 0.2
-  MatchDamageChance: 0.6
-  MissChance: 0.01
+  MatchDamageChance: 0.3
+  MissChance: 0.1
 --- !u!1 &1499288248
 GameObject:
   m_ObjectHideFlags: 0
@@ -1100,10 +1100,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cc5ad5d5c5a63e479ae1ed0dbcc7774, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentEncounterEnemy: 2
+  currentEncounterEnemy: 1
   Guitar: {fileID: 0}
-  Trombone: {fileID: 0}
-  Synth: {fileID: 1594104333611316923, guid: 9f9928f0fa435464c913b4802e7f629a, type: 3}
+  Trombone: {fileID: 5054445427508096660, guid: 264cc27a757618e42b07a1d44d2b9143,
+    type: 3}
+  Synth: {fileID: 0}
 --- !u!4 &1983622696 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 291993616714163250, guid: 5b2975f5963918346a7b5cb53f63a830,
