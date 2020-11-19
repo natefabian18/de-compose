@@ -59,8 +59,14 @@ public class FightSceneManager : MonoBehaviour
 				EnemyTeamScript.addCharecter(Enemy);
 				break;
 			case EnemyType.Encounter2:
+				Enemy = Instantiate(Trombone);
+				Enemy.transform.position = GameObject.FindGameObjectWithTag("EnemyPoint").transform.position;
+				EnemyTeamScript.addCharecter(Enemy);
 				break;
 			case EnemyType.Encounter3:
+				Enemy = Instantiate(Synth);
+				Enemy.transform.position = GameObject.FindGameObjectWithTag("EnemyPoint").transform.position;
+				EnemyTeamScript.addCharecter(Enemy);
 				break;
 			default:
 				Debug.LogError("No Enemy type found tossing error");
