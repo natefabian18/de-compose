@@ -24,6 +24,7 @@ TagManager:
   - Light
   - StartSceneManager
   - EndSceneManager
+  - Particles
   layers:
   - Default
   - TransparentFX

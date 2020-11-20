@@ -6,6 +6,7 @@ public class Constants : MonoBehaviour
 {
 	public static Constants C;
 	public GameObject[] selectedPlayers;
+	public Vector2 mapPositionGlobal;
 
 	private void Awake()
 	{
@@ -15,17 +16,7 @@ public class Constants : MonoBehaviour
 	void Start()
 	{
 		selectedPlayers = new GameObject[3];
-		/*
-		if (PlayerPrefs.HasKey(playerPrefHighScore))
-		{
-			highScore = PlayerPrefs.GetInt(playerPrefHighScore);
-		}
-		else
-		{
-			PlayerPrefs.SetInt(playerPrefHighScore, playerScore);
-		}
-		*/
-
+		mapPositionGlobal = new Vector2(-6.74f, 4.24f);
 	}
 
 	// Update is called once per frame
