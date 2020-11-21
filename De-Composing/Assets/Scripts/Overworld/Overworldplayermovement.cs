@@ -26,6 +26,7 @@ public class Overworldplayermovement : MonoBehaviour
 	void Start()
 	{
 		oldPosition = new Vector3(0, 0, 0);
+		transform.position = Constants.C.mapPositionGlobal;
 		startPosition = transform.position;
 		contactFilter.SetDepth(-2f, -12f);
 		results = new RaycastHit2D[100];
@@ -55,6 +56,7 @@ public class Overworldplayermovement : MonoBehaviour
 		}
 
 		mapPosition = transform.position;
+		Constants.C.mapPositionGlobal = mapPosition;
 		//transform.position = new Vector3(playerX, playerY, 0);
 		//transform.position += new Vector3(deltaMovement.x, deltaMovement.y, 0);
 
