@@ -120,7 +120,6 @@ public class FightSceneManager : MonoBehaviour
 			Debug.Log("This is the current scene" + currentScene);
 			if(currentScene == "Battle 1")
             {
-				
 				Constants.C.enemy1dead = true;
             }
 			else if(currentScene == "Battle 2"){
@@ -138,10 +137,11 @@ public class FightSceneManager : MonoBehaviour
 			UnityEngine.SceneManagement.SceneManager.LoadScene("Overworld");
 		}
 
-		if (PlayerHealth.HealthPercent == 0) {
+		if (PlayerHealth.HealthPercent <= 0) {
 			//enemy wins boot back to overworld
 			Debug.Log("Player dead");
 			//load scene back at town
+			Constants.C.mapPositionGlobal = new Vector2(-6.74f, 4.24f);
 			UnityEngine.SceneManagement.SceneManager.LoadScene("Overworld");
 		}
 

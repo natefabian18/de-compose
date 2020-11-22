@@ -61,7 +61,9 @@ public class MainMenuButtons : MonoBehaviour
 				break;
 			case 1:
 				GameObject.FindGameObjectWithTag("ChordMenu").GetComponent<SpriteRenderer>().enabled ^= true;
-				GameObject.FindGameObjectWithTag("TutText").GetComponent<Text>().enabled ^= true;
+				if (GameObject.FindGameObjectWithTag("TutText") != null) {
+					GameObject.FindGameObjectWithTag("TutText").GetComponent<Text>().enabled ^= true;
+				}
 				break;
 			case 2:
 				Constants.C.mapPositionGlobal = new Vector2(-6.74f, 4.24f);
