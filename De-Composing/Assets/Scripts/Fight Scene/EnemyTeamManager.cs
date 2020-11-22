@@ -115,8 +115,9 @@ public class EnemyTeamManager : MonoBehaviour
 		}
 		else if (randomMoveSelect > MissChance + normalDamageChance + MatchDamageChance && randomMoveSelect <= 1)
 		{
-			//chord damage
-			//make later
+			note1 = UnityEngine.Random.Range(0, 5);
+			note2 = note1 + 1;
+			note3 = note2 + 1;
 		}
 
 		int[] returner = new int[3];
@@ -158,6 +159,18 @@ public class EnemyTeamManager : MonoBehaviour
 		}
 
 		//chord test
+		if (
+		(attacks[0] == 0 && attacks[1] == 1 && attacks[2] == 2) ||
+		(attacks[0] == 1 && attacks[1] == 2 && attacks[2] == 3) ||
+		(attacks[0] == 2 && attacks[1] == 3 && attacks[2] == 4) ||
+		(attacks[0] == 3 && attacks[1] == 4 && attacks[2] == 5) ||
+		(attacks[0] == 4 && attacks[1] == 5 && attacks[2] == 6) ||
+		(attacks[0] == 5 && attacks[1] == 6 && attacks[2] == 7)
+		)
+		{
+			damageToSend *= 2;
+			Debug.Log("chord damage");
+		}
 
 		//send damage
 		FightSceneScript.EndEnemyAttack(damageToSend * 10);

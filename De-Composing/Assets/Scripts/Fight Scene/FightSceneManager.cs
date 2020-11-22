@@ -85,7 +85,9 @@ public class FightSceneManager : MonoBehaviour
 	public void PlayerAttack(float damage, bool healPlayer) {
 		Debug.Log($"damage is {damage} enemyHealth is {EnemyHealth.TotalHealth} damage percent is {damage / EnemyHealth.TotalHealth}");
 		EnemyHealth.HealthUpdate(damage / EnemyHealth.TotalHealth);
-
+		if (healPlayer) {
+			PlayerHealth.HealthUpdate((damage / PlayerHealth.TotalHealth) * -0.2f);
+		}
 		//Enemy do some stuff
 		checkHealthAndDeclareWinner();
 

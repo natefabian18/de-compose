@@ -116,7 +116,7 @@ public class PlayerTeamManager : MonoBehaviour
 		//TODO: check for attack modifiers: chord
 		int[] attacks = new int[3];
 		float damageToSend;
-		bool isHealing = false;
+		bool isHealing = Constants.C.isHealing;
 		//is harp in play?
 
 		for (int i = 0; i < attackTurns.Length; i++)
@@ -132,7 +132,18 @@ public class PlayerTeamManager : MonoBehaviour
 			damageToSend = attacks[0] * 4;
 		}
 
-		//chord test
+		//chord this is gross but were outta time
+		if (
+		(attacks[0] == 0 && attacks[1] == 1 && attacks[2] == 2) ||
+		(attacks[0] == 1 && attacks[1] == 2 && attacks[2] == 3) ||
+		(attacks[0] == 2 && attacks[1] == 3 && attacks[2] == 4) ||
+		(attacks[0] == 3 && attacks[1] == 4 && attacks[2] == 5) ||
+		(attacks[0] == 4 && attacks[1] == 5 && attacks[2] == 6) ||
+		(attacks[0] == 5 && attacks[1] == 6 && attacks[2] == 7) 
+		) {
+			damageToSend *= 2;
+			Debug.Log("chord damage");
+		}
 
 		Debug.Log(attacks[0]);
 		//send damage
