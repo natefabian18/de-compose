@@ -64,6 +64,8 @@ public class MainMenuButtons : MonoBehaviour
 				GameObject.FindGameObjectWithTag("TutText").GetComponent<Text>().enabled ^= true;
 				break;
 			case 2:
+				Constants.C.mapPositionGlobal = new Vector2(-6.74f, 4.24f);
+				UnityEngine.SceneManagement.SceneManager.LoadScene("Overworld");
 				break;
 			default:
 				Debug.LogError("no button selected");
