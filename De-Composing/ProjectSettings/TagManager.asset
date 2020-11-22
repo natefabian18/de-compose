@@ -25,6 +25,8 @@ TagManager:
   - StartSceneManager
   - EndSceneManager
   - Particles
+  - ChordMenu
+  - TutText
   layers:
   - Default
   - TransparentFX

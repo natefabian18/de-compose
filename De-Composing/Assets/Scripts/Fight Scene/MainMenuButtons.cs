@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainMenuButtons : MonoBehaviour
 {
@@ -59,6 +60,8 @@ public class MainMenuButtons : MonoBehaviour
 				fightSceneScript.ButtonSelect("Fight");
 				break;
 			case 1:
+				GameObject.FindGameObjectWithTag("ChordMenu").GetComponent<SpriteRenderer>().enabled ^= true;
+				GameObject.FindGameObjectWithTag("TutText").GetComponent<Text>().enabled ^= true;
 				break;
 			case 2:
 				break;
