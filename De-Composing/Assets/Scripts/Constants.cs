@@ -7,6 +7,11 @@ public class Constants : MonoBehaviour
 	public static Constants C;
 	public GameObject[] selectedPlayers;
 	public Vector2 mapPositionGlobal;
+	public bool enemy1dead = false;
+	public bool enemy2dead = false;
+	public bool bossdead= false;
+
+	public bool isHealing = false;
 
 	private void Awake()
 	{

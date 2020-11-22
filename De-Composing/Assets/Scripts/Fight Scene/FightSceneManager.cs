@@ -111,7 +111,24 @@ public class FightSceneManager : MonoBehaviour
 			//player wins
 			Debug.Log("Enemy dead");
 			//check if final boss was killed
+			string currentScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+			Debug.Log("This is the current scene" + currentScene);
+			if(currentScene == "Battle 1")
+            {
+				
+				Constants.C.enemy1dead = true;
+            }
+			else if(currentScene == "Battle 2"){
+				Debug.Log("Ended battle 2");
+				Constants.C.enemy2dead = true;
+            }
 
+			else if(currentScene == "Battle")
+            {
+				Debug.Log("boss is dead");
+				Constants.C.bossdead = true;
+				//UnityEngine.SceneManagement.SceneManager.LoadScene("Wrapup_End");
+            }
 			//load scene and kill enemy
 			UnityEngine.SceneManagement.SceneManager.LoadScene("Overworld");
 		}

@@ -14,7 +14,8 @@ public class Overworldplayermovement : MonoBehaviour
 	public Color color;
 	public int layerMask;
 	public static int Raycast;
-	
+	public GameObject enemy2;
+
 	private RaycastHit2D[] results;
 	private ContactFilter2D contactFilter;
 	private Vector3 oldPosition;
@@ -35,6 +36,14 @@ public class Overworldplayermovement : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		if (Constants.C.bossdead == true)
+		{
+			UnityEngine.SceneManagement.SceneManager.LoadScene("Wrapup_End");
+		}
+		if (Constants.C.enemy2dead == true)
+		{
+			Destroy(enemy2);
+		}
 		oldPosition = transform.position;
 
 		direction = getInput();
@@ -93,10 +102,15 @@ public class Overworldplayermovement : MonoBehaviour
 
 		if (collision.tag == "Enemy1")
 		{
+			if(Constants.C.enemy1dead == true)
+            {
+				return;
+            }
 			UnityEngine.SceneManagement.SceneManager.LoadScene("Battle 1");
 		}
 		else if (collision.tag == "Enemy2")
 		{
+			
 			UnityEngine.SceneManagement.SceneManager.LoadScene("Battle 2");
 		}
 		else if (collision.tag == "Boss_transition")
