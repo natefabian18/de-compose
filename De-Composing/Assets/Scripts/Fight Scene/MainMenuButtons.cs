@@ -61,6 +61,8 @@ public class MainMenuButtons : MonoBehaviour
 			case 1:
 				break;
 			case 2:
+				Constants.C.mapPositionGlobal = new Vector2(-6.74f, 4.24f);
+				UnityEngine.SceneManagement.SceneManager.LoadScene("Overworld");
 				break;
 			default:
 				Debug.LogError("no button selected");
