@@ -16,11 +16,13 @@ public class EnemyTeamManager : MonoBehaviour
 	public float MissChance = 0;
 
 	private bool takingTurn = false;
+	public bool isburned = false;
 	private GameObject[] attackTurns;
 
 	private ScaleAttack Scale;
 
 	private FightSceneManager FightSceneScript;
+	private SpriteRenderer EnemySpriteRender;
 
 	// Start is called before the first frame update
 	void Start()
@@ -35,6 +37,9 @@ public class EnemyTeamManager : MonoBehaviour
 		Characters = new List<GameObject>();
 		//this is loaded in form const party file
 
+		if (Constants.C.isBurning) {
+			isburned = true;
+		}
 
 		UpdateHealth(0);
 
@@ -47,6 +52,7 @@ public class EnemyTeamManager : MonoBehaviour
 
 		FightSceneScript = GameObject.FindGameObjectWithTag("FightSceneManager").GetComponent<FightSceneManager>();
 
+		
 	}
 
 	// Update is called once per frame
@@ -66,6 +72,9 @@ public class EnemyTeamManager : MonoBehaviour
 	public void startTeamAttack()
 	{
 		takingTurn = true;
+		if (isburned) {
+			FightSceneScript.burnDamage();
+		}
 		//call scale
 		Scale.startCheatAttack(constructAttack());
 	}
@@ -179,5 +188,9 @@ public class EnemyTeamManager : MonoBehaviour
 	public void addCharecter(GameObject character)
 	{
 		Characters.Add(character);
+
+		if (Constants.C.isBurning) {
+			Characters[0].GetComponent<SpriteRenderer>().color = Color.red;
+		}
 	}
 }

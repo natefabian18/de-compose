@@ -146,6 +146,21 @@ public class PlayerTeamManager : MonoBehaviour
 		}
 
 		Debug.Log(attacks[0]);
+
+		if (Constants.C.isBonusDamage) {
+			damageToSend *= 1.15f;
+		}
+
+		if (Constants.C.isHealing)
+		{
+			damageToSend *= 0.9f;
+		}
+
+		if (Constants.C.isPrecision)
+		{
+			damageToSend *= 0.9f;
+		}
+
 		//send damage
 		FightSceneScript.PlayerAttack(damageToSend * 10, isHealing);
 		attackTurns[0] = null;

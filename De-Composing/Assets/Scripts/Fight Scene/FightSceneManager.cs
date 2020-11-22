@@ -51,6 +51,11 @@ public class FightSceneManager : MonoBehaviour
 
 	}
 
+	public void burnDamage() {
+		EnemyHealth.HealthUpdate(0.05f);
+		checkHealthAndDeclareWinner();
+	}
+
 	private void instaniateTeams() {
 		switch (currentEncounterEnemy) {
 			case EnemyType.Encounter1:

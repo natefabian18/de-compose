@@ -45,6 +45,7 @@ public class ScaleAttack : MonoBehaviour
 
 		deltaSpeedModifier = speedModifier;
 
+
 		Bar.GetComponent<SpriteRenderer>().enabled = false;
 		Player = GameObject.FindGameObjectWithTag("PlayerTeam").GetComponent<PlayerTeamManager>();
 		Enemy = GameObject.FindGameObjectWithTag("EnemyTeam").GetComponent<EnemyTeamManager>();
@@ -79,9 +80,18 @@ public class ScaleAttack : MonoBehaviour
 			}
 		}
 
+		
+
 		if (barIsMoving) {
 			Bar.transform.position += new Vector3(speed * deltaSpeedModifier, 0, 0);
-			deltaSpeedModifier += speedModifier;
+			if (Constants.C.isPrecision)
+			{
+				deltaSpeedModifier += speedModifier * 0.5f;
+			}
+			else
+			{
+				deltaSpeedModifier += speedModifier;
+			}
 			if (Bar.transform.position.x > end.transform.position.x) {
 				EndAttack(notes[8]); //no note selected / miss
 				deltaSpeedModifier = 0;
