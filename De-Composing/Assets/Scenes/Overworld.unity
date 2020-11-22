@@ -5251,6 +5251,8 @@ MonoBehaviour:
   startPosition: {fileID: 835944622}
   endPosition: {fileID: 1757689483}
   speed: 1
+  enemy1: {fileID: 232242292}
+  enemy2: {fileID: 656429168}
 --- !u!1 &773562771
 GameObject:
   m_ObjectHideFlags: 0
@@ -5405,6 +5407,7 @@ MonoBehaviour:
   distance: 0.3
   color: {r: 1, g: 0, b: 0.9350643, a: 1}
   layerMask: 0
+  enemy2: {fileID: 656429168}
 --- !u!212 &977163887
 SpriteRenderer:
   m_ObjectHideFlags: 0
