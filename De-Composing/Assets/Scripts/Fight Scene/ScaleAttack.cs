@@ -29,6 +29,7 @@ public class ScaleAttack : MonoBehaviour
 
 	private PlayerTeamManager Player;
 	private EnemyTeamManager Enemy;
+	private Particles particlesystem;
 
 	private bool attacking;
 
@@ -47,6 +48,7 @@ public class ScaleAttack : MonoBehaviour
 
 
 		Bar.GetComponent<SpriteRenderer>().enabled = false;
+		particlesystem = GameObject.FindGameObjectWithTag("MusicParticles").GetComponent<Particles>();
 		Player = GameObject.FindGameObjectWithTag("PlayerTeam").GetComponent<PlayerTeamManager>();
 		Enemy = GameObject.FindGameObjectWithTag("EnemyTeam").GetComponent<EnemyTeamManager>();
 		cheatNoteSelected = new bool[3];
@@ -116,11 +118,13 @@ public class ScaleAttack : MonoBehaviour
 		cheatmode = false;
 		Bar.transform.position = start.transform.position;
 		barIsMoving = true;
+		particlesystem.playSomeParticles();
 		Bar.GetComponent<SpriteRenderer>().enabled = true;
 		attacking = attacker;
 	}
 
 	private void EndAttack(GameObject note) {
+		particlesystem.STAHPParticle();
 		Bar.GetComponent<SpriteRenderer>().enabled = false;
 		barIsMoving = false;
 		Bar.transform.position = start.transform.position;

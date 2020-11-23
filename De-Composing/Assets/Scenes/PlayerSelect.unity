@@ -390,6 +390,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedPlayers: []
+  mapPositionGlobal: {x: 0, y: 0}
+  enemy1dead: 0
+  enemy2dead: 0
+  bossdead: 0
+  isHealing: 0
 --- !u!4 &248708646
 Transform:
   m_ObjectHideFlags: 0
