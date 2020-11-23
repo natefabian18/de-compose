@@ -28,6 +28,7 @@ TagManager:
   - ChordMenu
   - TutText
   - AudioManager
+  - MusicParticles
   layers:
   - Default
   - TransparentFX
