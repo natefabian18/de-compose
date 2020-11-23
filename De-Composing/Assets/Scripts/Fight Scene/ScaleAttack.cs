@@ -158,10 +158,12 @@ public class ScaleAttack : MonoBehaviour
 		cheatNoteSelected[1] = false;
 		cheatNoteSelected[2] = false;
 		enemyNoteTicker = 0;
+		particlesystem.playSomeParticles();
 		Bar.GetComponent<SpriteRenderer>().enabled = true;
 	}
 
 	private void endCheatAttack() {
+		particlesystem.STAHPParticle();
 		Bar.GetComponent<SpriteRenderer>().enabled = false;
 		barIsMoving = false;
 		//#stopthebar
