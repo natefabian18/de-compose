@@ -9,7 +9,7 @@ public class EnemyTeamManager : MonoBehaviour
 	private float maxTeamHealth;
 	private GameObject EnemyHealthBar;
 	private List<GameObject> CharecterPoints;
-	private List<GameObject> Characters;
+	public List<GameObject> Characters;
 
 	public float ChordDamageChance = 0;
 	public float MatchDamageChance = 0;

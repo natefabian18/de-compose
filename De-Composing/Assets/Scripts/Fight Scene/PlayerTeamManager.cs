@@ -105,6 +105,7 @@ public class PlayerTeamManager : MonoBehaviour
 		{
 			takingTurn = false;
 			Debug.Log("SUCCESSFUL ATTACK");
+			Scale.playerCharAttacking = 0;
 			//call team attack for calc
 			calcAndApplyAttack();
 		}

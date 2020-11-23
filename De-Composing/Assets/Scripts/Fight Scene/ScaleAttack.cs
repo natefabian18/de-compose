@@ -32,6 +32,10 @@ public class ScaleAttack : MonoBehaviour
 
 	private bool attacking;
 
+	public int playerCharAttacking;
+	private int enemyNoteTicker;
+	private AudioManager Sound;
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -45,11 +49,13 @@ public class ScaleAttack : MonoBehaviour
 
 		deltaSpeedModifier = speedModifier;
 
+		Sound = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
 
 		Bar.GetComponent<SpriteRenderer>().enabled = false;
 		Player = GameObject.FindGameObjectWithTag("PlayerTeam").GetComponent<PlayerTeamManager>();
 		Enemy = GameObject.FindGameObjectWithTag("EnemyTeam").GetComponent<EnemyTeamManager>();
 		cheatNoteSelected = new bool[3];
+		playerCharAttacking = 0;
 	}
 
 	private void Update()
@@ -67,6 +73,10 @@ public class ScaleAttack : MonoBehaviour
 				if (cheatNoteSelected[i] == false) {
 					if ((Bar.transform.position - cheatednotes[i].transform.position).magnitude < 0.1) {
 						cheatNoteSelected[i] = true;
+						if (cheatednotes[enemyNoteTicker].name != "Miss0")
+						{
+							Sound.pickSoundToPlay(Enemy.Characters[0].name, int.Parse(cheatednotes[enemyNoteTicker].name[cheatednotes[enemyNoteTicker].name.Length - 1 ].ToString()));
+						}
 						Bar.transform.position = start.transform.position;
 						deltaSpeedModifier = 0;
 					}
@@ -113,6 +123,7 @@ public class ScaleAttack : MonoBehaviour
 	}
 
 	public void StartAttack(bool attacker) {
+		playerCharAttacking += 1;
 		cheatmode = false;
 		Bar.transform.position = start.transform.position;
 		barIsMoving = true;
@@ -123,6 +134,9 @@ public class ScaleAttack : MonoBehaviour
 	private void EndAttack(GameObject note) {
 		Bar.GetComponent<SpriteRenderer>().enabled = false;
 		barIsMoving = false;
+		if (note.name != "Miss0") {
+			Sound.pickSoundToPlay(Constants.C.selectedPlayers[playerCharAttacking - 1].name, int.Parse(note.name[note.name.Length - 1].ToString()) - 1);
+		}
 		Bar.transform.position = start.transform.position;
 		//something in manager to tell it the note
 		Player.AttackRegister(note);
@@ -139,6 +153,7 @@ public class ScaleAttack : MonoBehaviour
 		cheatNoteSelected[0] = false;
 		cheatNoteSelected[1] = false;
 		cheatNoteSelected[2] = false;
+		enemyNoteTicker = 0;
 		Bar.GetComponent<SpriteRenderer>().enabled = true;
 	}
 
